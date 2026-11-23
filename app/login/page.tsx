@@ -36,8 +36,8 @@ export default function LoginPage() {
         return;
       }
 
-      router.push("/dashboard");
-      router.refresh();
+        await authClient.getSession();
+        window.location.assign("/dashboard");
     } catch {
       setErrorMessage("Erro ao tentar entrar. Tente novamente.");
     } finally {
@@ -46,7 +46,7 @@ export default function LoginPage() {
   }
 
   return (
-    <>
+    <div className="auth-wrapper">
       <div className="bg" />
 
       <main className="card">
@@ -136,6 +136,6 @@ export default function LoginPage() {
       <button className="help-btn" type="button" aria-label="Ajuda">
         ?
       </button>
-    </>
+    </div>
   );
 }

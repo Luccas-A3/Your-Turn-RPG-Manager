@@ -76,18 +76,18 @@ export default function RegisterPage() {
     setIsSubmitting(true);
     try {
       const { error } = await authClient.signUp.email({
-        name: username.trim(),
-        email: email.trim(),
-        password,
-      });
+      name: username.trim(),
+      email: email.trim(),
+      password,
+    });
 
-      if (error) {
-        setFormWarning(error.message || "Não foi possível criar a conta.");
-        return;
-      }
+    if (error) {
+      setFormWarning(error.message || "Não foi possível criar a conta.");
+      return;
+    }
 
-      router.push("/dashboard");
-      router.refresh();
+    await authClient.getSession();
+    window.location.assign("/dashboard");
     } catch {
       setFormWarning("Erro ao criar conta. Tente novamente.");
     } finally {
@@ -96,7 +96,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <>
+    <div className="auth-wrapper">
       <div className="bg" />
 
       <main className="card">
@@ -233,6 +233,6 @@ export default function RegisterPage() {
       <button className="help-btn" type="button" aria-label="Ajuda">
         ?
       </button>
-    </>
+    </div>
   );
 }
